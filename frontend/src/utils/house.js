@@ -1,0 +1,3 @@
+export function house(s){const perfs=s.performances.filter(p=>p.production_id===Number(s.productionId)&&s.calls.some(c=>c.performance_id===p.id&&c.status==='confirmed')),id=Number(sessionStorage.getItem('house-performance')),perf=perfs.find(p=>p.id===id)||perfs[0],checked=s.assignments.filter(a=>a.performance_id===perf?.id&&a.checked_in);return{perfs,perf,checked}}
+export const performanceOptions=(perfs,perf)=>perfs.map(p=>`<option value="${p.id}" ${p.id===perf?.id?'selected':''}>${p.date} / ${p.curtain}</option>`).join('');
+export function bindPerformance(reload){const picker=document.querySelector('#house-performance');if(picker)picker.onchange=async e=>{sessionStorage.setItem('house-performance',e.target.value);await reload()}}

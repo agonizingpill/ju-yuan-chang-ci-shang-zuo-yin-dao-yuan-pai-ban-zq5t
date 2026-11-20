@@ -5,3 +5,13 @@
 textarea{font:inherit;width:100%;padding:10px;background:oklch(97% .015 85);border:1px solid var(--line);color:var(--ink);resize:vertical}.inline-form{display:flex;gap:12px;margin:20px 0}.inline-form select{flex:1}.inline-form button{white-space:nowrap}.checkin{display:flex;gap:8px;align-items:center}.checkin input{width:200px;font-size:12px}.checkin button{font-size:11px;white-space:nowrap}.staff-directory{max-height:370px;overflow:auto;border-top:1px solid var(--line);margin-top:20px}.staff-line{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);font-size:12px}.staff-line small{display:block;font-size:10px}.staff-line button{font-size:10px;padding:5px 9px}.handover{padding:20px 0;border-bottom:1px solid var(--line)}.handover p{font-size:13px;line-height:1.9}.handover .strip{margin:16px 0}@media(max-width:800px){.inline-form,.checkin{display:block}.inline-form button,.checkin button{margin-top:10px}.checkin input{width:100%}}
 
 .nav{gap:25px;flex-wrap:wrap}.nav a{white-space:nowrap}.pagehead select{letter-spacing:0}@media(max-width:800px){.nav{flex-wrap:nowrap}}
+
+.rec-card{border:1px solid var(--line);padding:18px 20px;margin-bottom:18px;background:oklch(96% .018 85)}
+.rec-card.ready{border-left:4px solid var(--wine)}
+.rec-card.insufficient{border-left:4px solid var(--gold)}
+.peak-bars{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+.peak-row{display:grid;grid-template-columns:150px 1fr 64px;gap:10px;align-items:center;font-size:11px}
+.peak-row .bar{height:10px;background:var(--soft)}
+.peak-row .bar span{display:block;height:100%;background:var(--gold)}
+.peak-row .bar span.peak{background:var(--wine)}
+#segment-panel .status{font-size:10px}

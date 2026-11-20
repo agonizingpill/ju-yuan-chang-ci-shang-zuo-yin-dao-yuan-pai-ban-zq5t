@@ -21,10 +21,15 @@ def invalidate(s,production):
     if production.forecast_state=='calculating':raise HTTPException(409,'预测进行中，请稍后修改验票输入')
     perfs=s.scalars(select(Performance).where(Performance.production_id==production.id,Performance.arrivals.is_(None))).all()
     if any(p.status=='crew_confirmed' for p in perfs):raise HTTPException(409,'已有确认点名，历史与剧目输入已冻结')
+    from .entry_models import EntryRecommendation
     for p in perfs:
         p.forecast=None;p.raw_forecast=None;p.status='scheduled'
         call=s.scalar(select(CrewCall).where(CrewCall.performance_id==p.id))
         if call:call.status='invalidated'
+        # 基于旧预测的进门高峰建议同步失活，待重新预测后算齐换版（旧版本仍保留可追溯）
+        for rec in s.scalars(select(EntryRecommendation).where(
+                EntryRecommendation.performance_id==p.id,EntryRecommendation.is_active==True)).all():
+            rec.is_active=False
     production.forecast_state='idle';production.forecast_evidence=None
 
 def save_crew(s,data):

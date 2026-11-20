@@ -13,6 +13,7 @@ from .services import get,pack,audit,history,validate_history,invalidate,save_cr
 from .middlewares import RequestTrace,BurstGuard
 from .frontdesk_routes import router as frontdesk_router
 from .house_routes import router as house_router
+from .entry_routes import router as entry_router
 from .constants import ROLES,PERFORMANCE_STATES,CALL_STATES
 r=redis.Redis.from_url(os.environ['REDIS_URL'],decode_responses=True)
 @asynccontextmanager
@@ -27,6 +28,7 @@ async def lifespan(app):
 app=FastAPI(title='南岸 · 场次上座与场务点名',lifespan=lifespan)
 app.include_router(frontdesk_router)
 app.include_router(house_router)
+app.include_router(entry_router)
 app.add_middleware(RequestTrace);app.add_middleware(BurstGuard)
 @app.exception_handler(IntegrityError)
 async def conflict(req,exc):return JSONResponse({'detail':'剧目编号、场次日期或点名单重复，请选择已有记录修订'},409)
